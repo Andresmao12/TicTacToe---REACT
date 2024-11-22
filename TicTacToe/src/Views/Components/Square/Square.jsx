@@ -1,9 +1,11 @@
 import style from './Square.module.css';
 
-const Square = ({content,isSelected, updateBoard})=>{
+const Square = ({children, index, updateBoard, isSelected})=>{
 
     const handleClick = ()=>{
-        updateBoard();
+        if (!index && index != 0) return
+
+        updateBoard(index);
     }
 
     return (
@@ -12,7 +14,7 @@ const Square = ({content,isSelected, updateBoard})=>{
             <div 
             className= {`${style.squareCont} ${isSelected ? style.active : null}` } 
             onClick = {handleClick}>
-                {content}
+                {children}
             </div>
         </>
 

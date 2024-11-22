@@ -2,20 +2,17 @@ import style from "../ScoreCont/ScoreCont.module.css";
 import Square from "../Square/Square";
 import { TURNS } from "../../../../public/GlobalConst";
 
-//FALTA PASAR EL TURNO DEL HIJO AL PADRE
 
-const ScoreCont = ({sendTurn}) => {
+const ScoreCont = ({turn}) => {
 
   return (
     <div className={style.container}>
       <Square
-        isSelected={sendTurn == TURNS.X ? true : false}
-        content={TURNS.X}
-      ></Square>
+        isSelected={turn == TURNS.X ? true : false}
+      > {TURNS.X} </Square>
       <Square
-        isSelected={sendTurn == TURNS.O ? true : false}
-        content={TURNS.O}
-      ></Square>
+        isSelected={turn == TURNS.O ? true : false}
+      > {TURNS.O} </Square>
     </div>
   );
 };
