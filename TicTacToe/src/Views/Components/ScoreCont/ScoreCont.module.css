@@ -16,3 +16,12 @@
 .active{
     background-color: #28f;
 }
+
+.btnReset{
+    padding: 5px 10px;
+
+    &:hover{
+        background-color: #fff;
+        color: #000;
+    }
+}

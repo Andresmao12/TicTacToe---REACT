@@ -2,9 +2,9 @@ import styles from "./GridCont.module.css";
 import Square from "../Square/Square";
 import {TURNS, FinallyStates} from '../../../../public/GlobalConst'
 
-import { useState } from "react";
+import { useState, forwardRef, useImperativeHandle} from "react";
 
-const GridCont = ({turn, sendNewTurn, winner, sendWinner}) => {
+const GridCont = forwardRef(({turn, sendNewTurn, winner, sendWinner}, ref) => {
     const [board, setBoard] = useState(Array(9).fill(null))
 
     const updateBoard = (index)=>{
@@ -20,19 +20,16 @@ const GridCont = ({turn, sendNewTurn, winner, sendWinner}) => {
         //Validamos si hay ganador y almacenamos
         const winnerResult = winnerValidation(newBoard)
 
-        if (!winnerResult) { //No hay ganador
-
-            //Validamos si hay empate
-            if(tiedValidation(newBoard)) sendWinner(FinallyStates.TIE)
-
-            //Cambiamos el turno
-            sendNewTurn(turn == TURNS.X ? TURNS.O : TURNS.X)
-
-        }else if(winnerResult){ //Hay ganador
+        if (winnerResult) { //Hay ganador
             sendWinner(winnerResult)
+        
+        }else if(tiedValidation(newBoard)){ //Hay empate
+            sendWinner(FinallyStates.TIE)
+
+        }else { //Cambiamos de turno
+            sendNewTurn(turn == TURNS.X ? TURNS.O : TURNS.X)
         }
 
-        
     }
 
     const winnerValidation = (board)=>{
@@ -58,9 +55,9 @@ const GridCont = ({turn, sendNewTurn, winner, sendWinner}) => {
         return board.every(element => element != null)
     }
 
-    const resetGame = ()=>{
-        setBoard(Array(9).fill(null))
-    }
+    useImperativeHandle(ref, ()=>({
+        resetBoard : ()=> setBoard(Array(9).fill(null))
+    }))
 
     return (
         <div className={styles.gridCont}>
@@ -75,6 +72,6 @@ const GridCont = ({turn, sendNewTurn, winner, sendWinner}) => {
             })}
         </div>
     );
-};
+});
 
 export default GridCont;

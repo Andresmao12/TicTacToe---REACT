@@ -3,7 +3,11 @@ import Square from "../Square/Square";
 import { TURNS } from "../../../../public/GlobalConst";
 
 
-const ScoreCont = ({turn}) => {
+const ScoreCont = ({turn, resetGame}) => {
+
+  const handleResetGame = ()=>{
+    resetGame()
+  }
 
   return (
     <div className={style.container}>
@@ -13,6 +17,7 @@ const ScoreCont = ({turn}) => {
       <Square
         isSelected={turn == TURNS.O ? true : false}
       > {TURNS.O} </Square>
+      <button className={style.btnReset} onClick={handleResetGame}>Reset game</button>
     </div>
   );
 };
