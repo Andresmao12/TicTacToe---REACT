@@ -3,12 +3,16 @@ import ScoreCont from '../Components/ScoreCont/ScoreCont'
 import GridCont from '../Components/GridCont/GridCont'
 import Square from '../Components/Square/Square'
 
-import { useState, useImperativeHandle,  useRef } from 'react'
+import { useState,  useRef } from 'react'
 import { TURNS, FinallyStates } from '../../../public/GlobalConst'
 
 function App() {
 
-  const [turn, setTurn] = useState(TURNS.X)
+  const [turn, setTurn] = useState(()=>{
+    const gameState = JSON.parse(window.localStorage.getItem("gameState"))
+    return gameState?.turnState ?? TURNS.X
+  })
+
   const [isWinner, setIsWinner] = useState(FinallyStates.CURRENT)
   const gridRef = useRef(null);
 
@@ -27,6 +31,7 @@ function App() {
 
     if(gridRef.current){
       gridRef.current.resetBoard();
+      window.localStorage.removeItem("gameState")
     }
   }
 

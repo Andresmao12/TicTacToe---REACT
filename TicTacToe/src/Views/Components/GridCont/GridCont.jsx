@@ -2,10 +2,18 @@ import styles from "./GridCont.module.css";
 import Square from "../Square/Square";
 import {TURNS, FinallyStates} from '../../../../public/GlobalConst'
 
-import { useState, forwardRef, useImperativeHandle} from "react";
+import { useState, useEffect, forwardRef, useImperativeHandle} from "react";
 
 const GridCont = forwardRef(({turn, sendNewTurn, winner, sendWinner}, ref) => {
     const [board, setBoard] = useState(Array(9).fill(null))
+
+    useEffect(()=>{
+
+        const gameState = JSON.parse(window.localStorage.getItem("gameState"));
+
+        if(!gameState?.boardState?.every(element => element == null) && gameState != null) setBoard(gameState?.boardState)
+
+    }, [])
 
     const updateBoard = (index)=>{
 
@@ -17,6 +25,10 @@ const GridCont = forwardRef(({turn, sendNewTurn, winner, sendWinner}, ref) => {
         newBoard[index] = turn;
         setBoard(newBoard)
 
+        const newTurn = turn == TURNS.X ? TURNS.O : TURNS.X;
+
+        window.localStorage.setItem("gameState", JSON.stringify({boardState : newBoard, turnState : newTurn}))
+
         //Validamos si hay ganador y almacenamos
         const winnerResult = winnerValidation(newBoard)
 
@@ -27,9 +39,8 @@ const GridCont = forwardRef(({turn, sendNewTurn, winner, sendWinner}, ref) => {
             sendWinner(FinallyStates.TIE)
 
         }else { //Cambiamos de turno
-            sendNewTurn(turn == TURNS.X ? TURNS.O : TURNS.X)
+            sendNewTurn(newTurn)
         }
-
     }
 
     const winnerValidation = (board)=>{
@@ -56,7 +67,9 @@ const GridCont = forwardRef(({turn, sendNewTurn, winner, sendWinner}, ref) => {
     }
 
     useImperativeHandle(ref, ()=>({
-        resetBoard : ()=> setBoard(Array(9).fill(null))
+        resetBoard : ()=> setBoard(Array(9).fill(null)),
+        getBoard : ()=> board,
+        setBoard : (newBoard) => setBoard(newBoard),
     }))
 
     return (
