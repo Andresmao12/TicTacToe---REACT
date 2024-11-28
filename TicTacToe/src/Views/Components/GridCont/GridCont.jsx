@@ -41,10 +41,6 @@ const GridCont = forwardRef(({turn, sendNewTurn, winner, sendWinner}, ref) => {
 
             const getScore = JSON.parse(localStorage.getItem("score")) || null;
 
-            if (getScore && W) {
-                
-            }
-
             if (getScore){
 
                 let scoreX = getScore.X;

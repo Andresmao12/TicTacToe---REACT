@@ -34,7 +34,6 @@ function App() {
       window.localStorage.removeItem("gameState");
     }
 
-
     setValidateReset(false)
   };
 
@@ -98,7 +97,7 @@ function App() {
             <span>You want reset score?</span>
             <div className={style.btnResetCont}>
               <button className={style.btnVReset} onClick={ResetGame}>
-                Reset game
+                Reset game only
               </button>
               <button className={style.btnVReset} onClick={ResetGameAndScore}>
                 Reset game and score
