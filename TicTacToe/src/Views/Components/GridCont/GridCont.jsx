@@ -1,6 +1,7 @@
 import styles from "./GridCont.module.css";
 import Square from "../Square/Square";
 import {TURNS, FinallyStates} from '../../../../public/GlobalConst'
+import confetti from 'canvas-confetti'
 
 import { useState, useEffect, forwardRef, useImperativeHandle} from "react";
 
@@ -34,6 +35,9 @@ const GridCont = forwardRef(({turn, sendNewTurn, winner, sendWinner}, ref) => {
 
         if (winnerResult) { //Hay ganador
             sendWinner(winnerResult)
+            confetti()
+            window.localStorage.setItem("score", JSON.stringify({X : 0, O : 0}))
+            window.localStorage.removeItem("gameState")
         
         }else if(tiedValidation(newBoard)){ //Hay empate
             sendWinner(FinallyStates.TIE)

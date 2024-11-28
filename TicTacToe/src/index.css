@@ -38,10 +38,12 @@ button {
 }
 
 #root {
-  width: 60%;
+  max-width: 60vw;
+  max-height: 100vh;
   text-align: center;
+
+  display: flex;
+  flex-direction: column;
   
-  justify-content: center;
-  overflow: hidden;
-  border: 1px solid green;
 }
+
