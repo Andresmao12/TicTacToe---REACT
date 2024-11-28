@@ -3,21 +3,31 @@ import Square from "../Square/Square";
 import { TURNS } from "../../../../public/GlobalConst";
 
 
-const ScoreCont = ({turn, resetGame}) => {
+const ScoreCont = ({turn, validationReset}) => {
 
-  const handleResetGame = ()=>{
-    resetGame()
+  const handleValidationReset = ()=>{
+    validationReset()
+  }
+
+  const getScore = JSON.parse(localStorage.getItem("score")) || null;
+
+  let score = {X : 0, O : 0}
+
+  if (getScore) {
+
+    score.X = getScore.X;
+    score.O = getScore.O;
   }
 
   return (
     <div className={style.container}>
       <Square
         isSelected={turn == TURNS.X ? true : false}
-      > {TURNS.X} </Square>
+      > {TURNS.X} - {score.X} </Square>
       <Square
         isSelected={turn == TURNS.O ? true : false}
-      > {TURNS.O} </Square>
-      <button className={style.btnReset} onClick={handleResetGame}>Reset game</button>
+      > {TURNS.O} - {score.O} </Square>
+      <button className={style.btnReset} onClick={handleValidationReset}>Reset game</button>
     </div>
   );
 };

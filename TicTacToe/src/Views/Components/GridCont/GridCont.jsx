@@ -36,7 +36,31 @@ const GridCont = forwardRef(({turn, sendNewTurn, winner, sendWinner}, ref) => {
         if (winnerResult) { //Hay ganador
             sendWinner(winnerResult)
             confetti()
-            window.localStorage.setItem("score", JSON.stringify({X : 0, O : 0}))
+
+            // winnerResult == TURNS.X ?? 
+
+            const getScore = JSON.parse(localStorage.getItem("score")) || null;
+
+            if (getScore && W) {
+                
+            }
+
+            if (getScore){
+
+                let scoreX = getScore.X;
+                let scoreO = getScore.O;
+
+                winnerResult == TURNS.X ? scoreX++ : scoreO++;
+
+                const score = {X : scoreX, O : scoreO}
+                window.localStorage.setItem("score", JSON.stringify(score))
+
+            }else {
+
+                window.localStorage.setItem("score", JSON.stringify({X : 0, O : 0}))
+            }
+
+            
             window.localStorage.removeItem("gameState")
         
         }else if(tiedValidation(newBoard)){ //Hay empate
