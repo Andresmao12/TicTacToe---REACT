@@ -1,0 +1,17 @@
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+}
+
+button{
+  cursor: pointer;
+  padding: .5em 1em;
+  transition: 200ms;
+
+  &:hover{
+    box-shadow: 0 0 20px #15a;
+
+  }
+}

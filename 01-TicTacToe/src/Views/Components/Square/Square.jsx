@@ -1,4 +1,6 @@
 import style from './Square.module.css';
+import PropTypes from "prop-types";
+
 
 const Square = ({children, index, updateBoard, isSelected})=>{
 
@@ -20,6 +22,15 @@ const Square = ({children, index, updateBoard, isSelected})=>{
 
     )
 
+}
+
+Square.displayName = "Square"
+
+Square.propTypes = {
+    children : PropTypes.isRequired,
+    index : PropTypes.isRequired,
+    updateBoard : PropTypes.isRequired,
+    isSelected : PropTypes.isRequired,
 }
 
 export default Square;

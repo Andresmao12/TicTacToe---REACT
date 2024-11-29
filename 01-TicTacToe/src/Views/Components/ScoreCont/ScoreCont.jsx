@@ -1,7 +1,7 @@
 import style from "../ScoreCont/ScoreCont.module.css";
 import Square from "../Square/Square";
 import { TURNS } from "../../../../public/GlobalConst";
-
+import PropTypes from "prop-types";
 
 const ScoreCont = ({turn, validationReset}) => {
 
@@ -31,5 +31,12 @@ const ScoreCont = ({turn, validationReset}) => {
     </div>
   );
 };
+
+ScoreCont.displayName = "ScoreCont";
+
+ScoreCont.propTypes = {
+  turn : PropTypes.isRequired,
+  validationReset : PropTypes.isRequired
+}
 
 export default ScoreCont;
